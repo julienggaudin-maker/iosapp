@@ -27,11 +27,12 @@ final class HomeViewModel: ObservableObject {
     private var isFirstAppear = true
     private var lastForegroundRefresh: Date?
     private var lastCtaTap: Date?
+    private var hasTrackedOpen = false
 
     init(
         repository: HomeRepository,
         networkMonitor: NetworkMonitor = .shared,
-        analytics: AnalyticsService = .shared,
+        analytics: AnalyticsService = DefaultAnalyticsService.shared,
         metricsReporter: HomeMetricsReporting = HomeMetricsReporter.shared
     ) {
         self.repository = repository
@@ -42,8 +43,11 @@ final class HomeViewModel: ObservableObject {
     }
 
     func onAppear() async {
-        analytics.track(event: "home_opened", properties: ["first_launch": isFirstAppear])
-        isFirstAppear = false
+        if !hasTrackedOpen {
+            analytics.track(event: "home_opened", properties: ["first_launch": isFirstAppear])
+            isFirstAppear = false
+            hasTrackedOpen = true
+        }
         updateWelcomeMessage()
         if lastForegroundRefresh == nil {
             lastForegroundRefresh = Date()
@@ -80,12 +84,23 @@ final class HomeViewModel: ObservableObject {
         return true
     }
 
+    private enum LoadResult: String {
+        case success
+        case empty
+        case error
+        case offline
+    }
+
     private func loadIfNeeded(forceRefreshIfStale: Bool = false, silent: Bool = false) async {
         if !forceRefreshIfStale, repository.isCacheValid(), repository.hasCachedData {
             let start = Date()
-            applyPayload(repository.cachedPayload())
-            logLoaded(start: start, fromCache: true)
-            metricsReporter.recordLoad(duration: Date().timeIntervalSince(start))
+            let metricsToken = metricsReporter.beginLoad()
+            defer {
+                metricsReporter.recordLoad(duration: Date().timeIntervalSince(start))
+                metricsReporter.endLoad(metricsToken)
+            }
+            let result = applyPayload(repository.cachedPayload())
+            logLoaded(start: start, fromCache: true, result: result)
             return
         }
 
@@ -94,6 +109,12 @@ final class HomeViewModel: ObservableObject {
 
     private func load(forceRefresh: Bool, silent: Bool = false) async {
         let start = Date()
+        let metricsToken = metricsReporter.beginLoad()
+        defer {
+            isRefreshing = false
+            metricsReporter.recordLoad(duration: Date().timeIntervalSince(start))
+            metricsReporter.endLoad(metricsToken)
+        }
         if !silent {
             state = .loading
         }
@@ -102,38 +123,39 @@ final class HomeViewModel: ObservableObject {
 
         if !networkMonitor.isConnected {
             if repository.hasCachedData {
-                applyPayload(repository.cachedPayload())
+                let result = applyPayload(repository.cachedPayload())
                 showOfflineBanner = true
-                logLoaded(start: start, fromCache: true)
-                metricsReporter.recordLoad(duration: Date().timeIntervalSince(start))
+                logLoaded(start: start, fromCache: true, result: result)
             } else {
                 state = .offline
                 analytics.track(event: "home_offline_shown", properties: [:])
+                logLoaded(start: start, fromCache: false, result: .offline)
             }
-            isRefreshing = false
             return
         }
 
         do {
             let result = try await repository.fetchHome(forceRefresh: forceRefresh)
-            applyPayload(result)
-            logLoaded(start: start, fromCache: repository.lastFetchFromCache)
+            let loadResult = applyPayload(result)
+            logLoaded(start: start, fromCache: repository.lastFetchFromCache, result: loadResult)
         } catch let error as HomeError {
             handleError(error)
+            logLoaded(start: start, fromCache: false, result: .error)
         } catch {
             logger.error("Unknown error \(error.localizedDescription, privacy: .public)")
             handleError(.unknown)
+            logLoaded(start: start, fromCache: false, result: .error)
         }
-
-        isRefreshing = false
-        metricsReporter.recordLoad(duration: Date().timeIntervalSince(start))
     }
 
-    private func applyPayload(_ payload: HomePayload) {
+    @discardableResult
+    private func applyPayload(_ payload: HomePayload) -> LoadResult {
         if payload.sections.isEmpty {
             state = .empty
+            return .empty
         } else {
             state = .loaded(payload)
+            return .success
         }
     }
 
@@ -156,13 +178,14 @@ final class HomeViewModel: ObservableObject {
         }
     }
 
-    private func logLoaded(start: Date, fromCache: Bool) {
+    private func logLoaded(start: Date, fromCache: Bool, result: LoadResult) {
         let elapsed = Int(Date().timeIntervalSince(start) * 1000)
         analytics.track(
             event: "home_loaded",
             properties: [
                 "load_time_ms": elapsed,
-                "from_cache": fromCache
+                "from_cache": fromCache,
+                "result": result.rawValue
             ]
         )
     }

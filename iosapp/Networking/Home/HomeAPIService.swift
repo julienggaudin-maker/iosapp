@@ -7,7 +7,9 @@ final class HomeAPIService: HomeRepository {
     private let logger = Logger(subsystem: "com.app.home", category: "api")
     private let cachePolicy: HomeCachePolicy
 
-    private let cacheURL = URL(string: "https://example.com/home")
+    private static let defaultBaseURLString = "https://example.com"
+
+    private let cacheURL: URL
 
     init(
         session: URLSession = .shared,
@@ -17,6 +19,30 @@ final class HomeAPIService: HomeRepository {
         self.session = session
         self.decoder = decoder
         self.cachePolicy = cachePolicy
+        let baseURL = Self.resolveBaseURL()
+        self.cacheURL = Self.homeEndpoint(from: baseURL)
+    }
+
+    private static func resolveBaseURL(
+        infoDictionary: [String: Any] = Bundle.main.infoDictionary ?? [:]
+    ) -> URL {
+        let rawValue = infoDictionary["HOME_API_BASE_URL"] as? String
+        let trimmed = rawValue?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let urlString: String
+        if let trimmed, !trimmed.isEmpty {
+            urlString = trimmed
+        } else {
+            urlString = defaultBaseURLString
+        }
+        let baseURL = URL(string: urlString) ?? URL(string: defaultBaseURLString)
+        return baseURL ?? URL(fileURLWithPath: "/")
+    }
+
+    private static func homeEndpoint(from baseURL: URL) -> URL {
+        if baseURL.lastPathComponent.lowercased() == "home" {
+            return baseURL
+        }
+        return baseURL.appendingPathComponent("home")
     }
 
     var hasCachedData: Bool {
@@ -49,16 +75,11 @@ final class HomeAPIService: HomeRepository {
     }
 
     func invalidateCache() {
-        guard let url = cacheURL else { return }
-        URLCache.shared.removeCachedResponse(for: URLRequest(url: url))
+        URLCache.shared.removeCachedResponse(for: URLRequest(url: cacheURL))
     }
 
     func fetchHome(forceRefresh: Bool) async throws -> HomePayload {
-        guard let url = cacheURL else {
-            throw HomeError.unknown
-        }
-
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: cacheURL)
         request.httpMethod = "GET"
         request.cachePolicy = forceRefresh ? .reloadIgnoringLocalCacheData : .useProtocolCachePolicy
         let (data, response) = try await session.data(for: request)
@@ -79,7 +100,7 @@ final class HomeAPIService: HomeRepository {
 
         do {
             let payload = try decoder.decode(HomePayload.self, from: data)
-            cachePayload(payload, url: url)
+            cachePayload(payload, url: cacheURL)
             lastFetchFromCache = false
             return payload
         } catch {
@@ -106,8 +127,7 @@ final class HomeAPIService: HomeRepository {
     }
 
     private func cachedResponse() -> CachedURLResponse? {
-        guard let url = cacheURL else { return nil }
-        return URLCache.shared.cachedResponse(for: URLRequest(url: url))
+        URLCache.shared.cachedResponse(for: URLRequest(url: cacheURL))
     }
 }
 

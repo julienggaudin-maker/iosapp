@@ -1,8 +1,12 @@
 import Foundation
 import os
 
-final class AnalyticsService {
-    static let shared = AnalyticsService()
+protocol AnalyticsService {
+    func track(event: String, properties: [String: Any])
+}
+
+final class DefaultAnalyticsService: AnalyticsService {
+    static let shared = DefaultAnalyticsService()
 
     private let logger = Logger(subsystem: "com.app.home", category: "analytics")
 

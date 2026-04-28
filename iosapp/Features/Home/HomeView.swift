@@ -16,6 +16,7 @@ struct HomeView: View {
                     .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
+        .animation(.easeInOut, value: viewModel.showOfflineBanner)
         .background(Color(.systemBackground))
         .navigationTitle("Accueil")
         .navigationBarTitleDisplayMode(.large)
@@ -84,32 +85,102 @@ struct HomeView: View {
     }
 }
 
-#Preview("Loading") {
+#Preview("Loading - iPhone SE") {
     NavigationStack {
         HomeView(viewModel: .previewLoading())
     }
+    .previewDisplayName("Loading - SE Light")
+    .preferredColorScheme(.light)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone SE (3rd generation)")
 }
 
-#Preview("Loaded") {
+#Preview("Loading - Pro Max") {
+    NavigationStack {
+        HomeView(viewModel: .previewLoading())
+    }
+    .previewDisplayName("Loading - Pro Max Dark")
+    .preferredColorScheme(.dark)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone 16 Pro Max")
+}
+
+#Preview("Loaded - iPhone SE") {
     NavigationStack {
         HomeView(viewModel: .previewLoaded())
     }
+    .previewDisplayName("Loaded - SE Light")
+    .preferredColorScheme(.light)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone SE (3rd generation)")
 }
 
-#Preview("Empty") {
+#Preview("Loaded - Pro Max") {
+    NavigationStack {
+        HomeView(viewModel: .previewLoaded())
+    }
+    .previewDisplayName("Loaded - Pro Max Dark")
+    .preferredColorScheme(.dark)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone 16 Pro Max")
+}
+
+#Preview("Empty - iPhone SE") {
     NavigationStack {
         HomeView(viewModel: .previewEmpty())
     }
+    .previewDisplayName("Empty - SE Light")
+    .preferredColorScheme(.light)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone SE (3rd generation)")
 }
 
-#Preview("Error") {
+#Preview("Empty - Pro Max") {
+    NavigationStack {
+        HomeView(viewModel: .previewEmpty())
+    }
+    .previewDisplayName("Empty - Pro Max Dark")
+    .preferredColorScheme(.dark)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone 16 Pro Max")
+}
+
+#Preview("Error - iPhone SE") {
     NavigationStack {
         HomeView(viewModel: .previewError())
     }
+    .previewDisplayName("Error - SE Light")
+    .preferredColorScheme(.light)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone SE (3rd generation)")
 }
 
-#Preview("Offline") {
+#Preview("Error - Pro Max") {
+    NavigationStack {
+        HomeView(viewModel: .previewError())
+    }
+    .previewDisplayName("Error - Pro Max Dark")
+    .preferredColorScheme(.dark)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone 16 Pro Max")
+}
+
+#Preview("Offline - iPhone SE") {
     NavigationStack {
         HomeView(viewModel: .previewOffline())
     }
+    .previewDisplayName("Offline - SE Light")
+    .preferredColorScheme(.light)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone SE (3rd generation)")
+}
+
+#Preview("Offline - Pro Max") {
+    NavigationStack {
+        HomeView(viewModel: .previewOffline())
+    }
+    .previewDisplayName("Offline - Pro Max Dark")
+    .preferredColorScheme(.dark)
+    .environment(\.dynamicTypeSize, .accessibility2)
+    .previewDevice("iPhone 16 Pro Max")
 }
