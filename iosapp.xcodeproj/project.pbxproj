@@ -27,6 +27,17 @@
 		0A1B2C3D4E5F60718293A60F /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B2C3D4E5F60718293A530 /* HomeViewModelTests.swift */; };
 		0A1B2C3D4E5F60718293A610 /* iosappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B2C3D4E5F60718293A531 /* iosappTests.swift */; };
 		0A1B2C3D4E5F60718293A660 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1B2C3D4E5F60718293A560 /* XCTest.framework */; };
+		0B1C2D3E4F5A6B7C8D9E2001 /* JobOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1001 /* JobOffer.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2002 /* JobRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1002 /* JobRepository.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2003 /* MockJobRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1003 /* MockJobRepository.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2004 /* RemoteJobRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1004 /* RemoteJobRepository.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2005 /* JobListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1005 /* JobListViewModel.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2006 /* JobListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1006 /* JobListView.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2007 /* JobCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1007 /* JobCardView.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2008 /* JobDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1008 /* JobDetailView.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2009 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1009 /* SafariView.swift */; };
+		0B1C2D3E4F5A6B7C8D9E2010 /* jobs_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1010 /* jobs_mock.json */; };
+		0B1C2D3E4F5A6B7C8D9E2011 /* JobListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C2D3E4F5A6B7C8D9E1011 /* JobListViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +64,17 @@
 		0A1B2C3D4E5F60718293A540 /* iosapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = iosapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A1B2C3D4E5F60718293A541 /* iosappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = iosappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A1B2C3D4E5F60718293A560 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
+		0B1C2D3E4F5A6B7C8D9E1001 /* JobOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobOffer.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1002 /* JobRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobRepository.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1003 /* MockJobRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJobRepository.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1004 /* RemoteJobRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteJobRepository.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1005 /* JobListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListViewModel.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1006 /* JobListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListView.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1007 /* JobCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardView.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1008 /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1009 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1010 /* jobs_mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = jobs_mock.json; sourceTree = "<group>"; };
+		0B1C2D3E4F5A6B7C8D9E1011 /* JobListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B1C2D3E4F5A6B7C8D9E2010 /* jobs_mock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +103,7 @@
 				0A1B2C3D4E5F60718293A4E0 /* App */,
 				0A1B2C3D4E5F60718293A4E1 /* Features */,
 				0A1B2C3D4E5F60718293A4E3 /* Networking */,
+				0B1C2D3E4F5A6B7C8D9E1102 /* Resources */,
 				0A1B2C3D4E5F60718293A4E5 /* Shared */,
 				0A1B2C3D4E5F60718293A4E6 /* iosappTests */,
 				0A1B2C3D4E5F60718293A4E7 /* Frameworks */,
@@ -110,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				0A1B2C3D4E5F60718293A4E2 /* Home */,
+				0B1C2D3E4F5A6B7C8D9E1100 /* Careers */,
 			);
 			path = iosapp/Features;
 			sourceTree = "<group>";
@@ -134,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				0A1B2C3D4E5F60718293A4E4 /* Home */,
+				0B1C2D3E4F5A6B7C8D9E1101 /* Careers */,
 			);
 			path = iosapp/Networking;
 			sourceTree = "<group>";
@@ -162,9 +188,49 @@
 			isa = PBXGroup;
 			children = (
 				0A1B2C3D4E5F60718293A530 /* HomeViewModelTests.swift */,
+				0B1C2D3E4F5A6B7C8D9E1103 /* CareersTests */,
 				0A1B2C3D4E5F60718293A531 /* iosappTests.swift */,
 			);
 			path = iosappTests;
+			sourceTree = "<group>";
+		};
+		0B1C2D3E4F5A6B7C8D9E1100 /* Careers */ = {
+			isa = PBXGroup;
+			children = (
+				0B1C2D3E4F5A6B7C8D9E1005 /* JobListViewModel.swift */,
+				0B1C2D3E4F5A6B7C8D9E1006 /* JobListView.swift */,
+				0B1C2D3E4F5A6B7C8D9E1007 /* JobCardView.swift */,
+				0B1C2D3E4F5A6B7C8D9E1008 /* JobDetailView.swift */,
+				0B1C2D3E4F5A6B7C8D9E1009 /* SafariView.swift */,
+			);
+			path = iosapp/Features/Careers;
+			sourceTree = "<group>";
+		};
+		0B1C2D3E4F5A6B7C8D9E1101 /* Careers */ = {
+			isa = PBXGroup;
+			children = (
+				0B1C2D3E4F5A6B7C8D9E1001 /* JobOffer.swift */,
+				0B1C2D3E4F5A6B7C8D9E1002 /* JobRepository.swift */,
+				0B1C2D3E4F5A6B7C8D9E1003 /* MockJobRepository.swift */,
+				0B1C2D3E4F5A6B7C8D9E1004 /* RemoteJobRepository.swift */,
+			);
+			path = iosapp/Networking/Careers;
+			sourceTree = "<group>";
+		};
+		0B1C2D3E4F5A6B7C8D9E1102 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0B1C2D3E4F5A6B7C8D9E1010 /* jobs_mock.json */,
+			);
+			path = iosapp/Resources;
+			sourceTree = "<group>";
+		};
+		0B1C2D3E4F5A6B7C8D9E1103 /* CareersTests */ = {
+			isa = PBXGroup;
+			children = (
+				0B1C2D3E4F5A6B7C8D9E1011 /* JobListViewModelTests.swift */,
+			);
+			path = iosappTests/CareersTests;
 			sourceTree = "<group>";
 		};
 		0A1B2C3D4E5F60718293A4E7 /* Frameworks */ = {
@@ -255,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B1C2D3E4F5A6B7C8D9E2010 /* jobs_mock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +356,15 @@
 				0A1B2C3D4E5F60718293A60C /* NetworkMonitor.swift in Sources */,
 				0A1B2C3D4E5F60718293A60D /* AnalyticsService.swift in Sources */,
 				0A1B2C3D4E5F60718293A60E /* HomeMetricsReporter.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2001 /* JobOffer.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2002 /* JobRepository.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2003 /* MockJobRepository.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2004 /* RemoteJobRepository.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2005 /* JobListViewModel.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2006 /* JobListView.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2007 /* JobCardView.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2008 /* JobDetailView.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2009 /* SafariView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A1B2C3D4E5F60718293A60F /* HomeViewModelTests.swift in Sources */,
+				0B1C2D3E4F5A6B7C8D9E2011 /* JobListViewModelTests.swift in Sources */,
 				0A1B2C3D4E5F60718293A610 /* iosappTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
