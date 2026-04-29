@@ -63,7 +63,7 @@ final class JobListViewModel: ObservableObject {
         if repository.isCacheValid(), repository.hasCachedData {
             let cached = repository.cachedJobs()
             let shouldShowOffline = !networkMonitor.isConnected
-            applyJobs(cached, fromCache: true, showOfflineBanner: shouldShowOffline)
+            applyJobs(cached, showOfflineBanner: shouldShowOffline)
             return
         }
         await load(forceRefresh: false)
@@ -81,7 +81,7 @@ final class JobListViewModel: ObservableObject {
         if !networkMonitor.isConnected {
             if repository.hasCachedData {
                 let cached = repository.cachedJobs()
-                applyJobs(cached, fromCache: true, showOfflineBanner: true)
+                applyJobs(cached, showOfflineBanner: true)
             } else {
                 state = .offline
             }
@@ -90,7 +90,7 @@ final class JobListViewModel: ObservableObject {
 
         do {
             let jobs = try await repository.fetchJobs(forceRefresh: forceRefresh)
-            applyJobs(jobs, fromCache: repository.lastFetchFromCache, showOfflineBanner: false)
+            applyJobs(jobs, showOfflineBanner: repository.lastFetchFromCache)
         } catch let error as JobRepositoryError {
             handleError(error)
         } catch {
@@ -99,8 +99,9 @@ final class JobListViewModel: ObservableObject {
         }
     }
 
-    private func applyJobs(_ jobs: [JobOffer], fromCache: Bool, showOfflineBanner: Bool) {
+    private func applyJobs(_ jobs: [JobOffer], showOfflineBanner: Bool) {
         let activeJobs = jobs.filter { $0.isActive }
+        showOfflineBanner = showOfflineBanner && repository.lastFetchFromCache
         if activeJobs.isEmpty {
             state = .empty
         } else {
